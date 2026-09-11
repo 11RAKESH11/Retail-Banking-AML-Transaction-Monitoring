@@ -8,11 +8,11 @@ The system monitors customer transactions, identifies suspicious patterns, calcu
 
 ---
 
-## 🚨 Problem Statement
+# 🚨 Problem Statement
 
 Banks process thousands of financial transactions every day. Manually monitoring these transactions and identifying suspicious activities can be **time-consuming, inefficient, and prone to human error**.
 
-Compliance teams also need to analyze large numbers of alerts and prioritize cases that require immediate attention.
+Compliance teams also need to analyze large numbers of alerts and prioritize cases that require further investigation.
 
 Our system addresses these challenges by automating important parts of the AML transaction-monitoring workflow.
 
@@ -49,114 +49,87 @@ Compliance Employee
 Review / Freeze / Resolve
 ```
 
-### 🔄 Workflow Explanation
+## 🔄 Workflow Explanation
 
-#### 1. Customer
+### 1. Customer
 
 The customer performs banking activities through their account.
 
-#### 2. Bank Transaction
+### 2. Bank Transaction
 
 Transactions such as deposits, withdrawals, transfers, and other account activities are recorded by the system.
 
-#### 3. AML Monitoring
+### 3. AML Monitoring
 
 The transaction is evaluated against configured AML monitoring rules and suspicious activity indicators.
 
-#### 4. Risk Analysis
+### 4. Risk Analysis
 
 The system analyzes transaction activity and calculates a risk score based on applicable rules and detected patterns.
 
-#### 5. Suspicious Alert
+### 5. Suspicious Alert
 
 If a transaction meets the defined risk conditions, the system generates an AML alert for further investigation.
 
-#### 6. Compliance Employee
+### 6. Compliance Employee
 
 The compliance employee reviews the alert and examines the associated customer and transaction information.
 
-#### 7. Review / Freeze / Resolve
+### 7. Review / Freeze / Resolve
 
 The employee investigates the alert and can take the appropriate action, such as reviewing, escalating, freezing where authorized, or resolving the case.
 
 ---
 
-# 👥 User Roles
+# 🏗️ System Architecture
 
-## 👤 Customer
+The system is divided into three major layers:
 
-Customers can:
-
-- Register and log in
-- View account information
-- View transaction history
-- Monitor banking activity
-- Download account statements
-
-## 🛡️ Compliance Employee
-
-Compliance employees can:
-
-- View AML alerts
-- Review suspicious transactions
-- View detailed alert information
-- Examine customer transaction history
-- Investigate potentially suspicious activities
-- Update alert status
-- Resolve or escalate alerts
-
-## ⚙️ Administrator
-
-Administrators can:
-
-- Configure AML monitoring rules
-- Manage rule parameters
-- Define transaction-monitoring conditions
-- Manage the AML monitoring configuration
-
----
-
-# 🚀 Key Features
-
-## 🔐 Authentication & Authorization
-
-- Customer registration and login
-- Secure authentication
-- Protected application routes
-- Role-based access control
-
-## 💳 Transaction Monitoring
-
-- Transaction history
-- Transaction-level monitoring
-- Suspicious activity detection
-- Risk-based transaction analysis
-
-## 🚨 AML Alert Management
-
-- Automatic AML alert generation
-- Risk and severity classification
-- Alert status tracking
-- Detailed alert investigation
-- Alert resolution workflow
-
-## 📊 Risk Analysis
-
-The system evaluates transaction activity and generates risk scores to help compliance employees prioritize potentially high-risk transactions and alerts.
-
-## ⚙️ AML Rule Configuration
-
-Administrators can configure AML monitoring rules that determine when transactions should be flagged for further investigation.
-
-## 📄 Statement Management
-
-Customers can view and download their transaction statements for reviewing their banking activity.
+```text
+┌──────────────────────────────────────┐
+│              FRONTEND                │
+│          React Web Application       │
+│                                      │
+│ Customer • Employee • Admin          │
+└──────────────────┬───────────────────┘
+                   │
+                   │ REST API
+                   ▼
+┌──────────────────────────────────────┐
+│               BACKEND                │
+│            API & Business Logic      │
+│                                      │
+│ Authentication                       │
+│ Transaction Management               │
+│ AML Monitoring                       │
+│ Risk Analysis                        │
+│ Alert Management                     │
+│ Rule Management                      │
+└──────────────────┬───────────────────┘
+                   │
+                   │ Database Connection
+                   ▼
+┌──────────────────────────────────────┐
+│              DATABASE                │
+│                                      │
+│ Customers                            │
+│ Accounts                             │
+│ Transactions                         │
+│ AML Alerts                           │
+│ AML Rules                             │
+│ User Roles                           │
+└──────────────────────────────────────┘
+```
 
 ---
 
-# 🖥️ Frontend Architecture
+# 🖥️ Frontend
 
-The frontend is organized using a modular React-based architecture.
+The frontend provides the web-based interface through which customers, compliance employees, and administrators interact with the system.
+
+The frontend is built using **React.js** and follows a modular component-based architecture.
+
+## 📂 Frontend Structure
 
 ```text
 retail-banking-aml-frontend/
@@ -207,7 +180,7 @@ retail-banking-aml-frontend/
 
 ---
 
-# 📂 Frontend Structure
+# 📂 Frontend Components
 
 ## `src/api/`
 
@@ -220,7 +193,7 @@ api/
 
 ### `api.js`
 
-Handles communication between the frontend and backend APIs.
+Handles communication between the React frontend and backend REST APIs.
 
 ---
 
@@ -267,35 +240,15 @@ Restricts access to pages based on authentication and user roles.
 
 ### `StatCard.jsx`
 
-Displays important statistics and dashboard metrics.
+Displays important dashboard statistics and metrics.
 
 ### `AlertBadge.jsx`
 
-Displays alert status or severity indicators.
+Displays AML alert status and severity indicators.
 
 ### `Loading.jsx`
 
-Provides a reusable loading state for asynchronous operations.
-
----
-
-# 📄 Application Pages
-
-## 🔑 Authentication
-
-```text
-pages/
-├── Login.jsx
-└── Register.jsx
-```
-
-### `Login.jsx`
-
-Provides user authentication and login functionality.
-
-### `Register.jsx`
-
-Allows new customers to create an account.
+Provides reusable loading states for asynchronous operations.
 
 ---
 
@@ -318,7 +271,7 @@ Displays customer account information.
 
 ### `Transactions.jsx`
 
-Displays transaction history and provides access to transaction details and statements.
+Displays transaction history and transaction-related information.
 
 ---
 
@@ -337,11 +290,11 @@ Provides compliance employees with an overview of AML monitoring activity and al
 
 ### `Alerts.jsx`
 
-Displays AML alerts requiring review or investigation.
+Displays AML alerts that require review or investigation.
 
 ### `AlertDetails.jsx`
 
-Provides detailed information about an individual alert, including relevant transaction and customer information.
+Provides detailed information about an individual AML alert, including relevant customer and transaction information.
 
 ---
 
@@ -358,84 +311,112 @@ Allows administrators to configure and manage AML transaction-monitoring rules.
 
 ---
 
-# 🔄 AML Monitoring Flow
+# ⚙️ Backend
 
-The complete AML monitoring process can be represented as:
+The backend provides the core business logic and APIs required by the frontend.
+
+It is responsible for:
+
+- Authentication
+- Authorization
+- Customer management
+- Account management
+- Transaction processing
+- AML rule evaluation
+- Risk scoring
+- AML alert generation
+- Alert management
+- Administrative rule configuration
+- Database communication
+
+---
+
+# 📂 Backend Structure
 
 ```text
-┌─────────────────┐
-│    Customer     │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Bank Transaction│
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  AML Monitoring │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Risk Analysis  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│   AML Alert     │
-└────────┬────────┘
-         │
-         ▼
-┌──────────────────────┐
-│ Compliance Employee  │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│ Review / Investigate │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│ Resolve / Escalate   │
-└──────────────────────┘
+retail-banking-aml-backend/
+│
+├── app/
+│   │
+│   ├── main.py
+│   │
+│   ├── api/
+│   │   ├── auth.py
+│   │   ├── customers.py
+│   │   ├── accounts.py
+│   │   ├── transactions.py
+│   │   ├── alerts.py
+│   │   └── admin.py
+│   │
+│   ├── core/
+│   │   ├── config.py
+│   │   └── security.py
+│   │
+│   ├── models/
+│   │   ├── user.py
+│   │   ├── customer.py
+│   │   ├── account.py
+│   │   ├── transaction.py
+│   │   ├── alert.py
+│   │   └── rule.py
+│   │
+│   ├── schemas/
+│   │   ├── auth.py
+│   │   ├── customer.py
+│   │   ├── account.py
+│   │   ├── transaction.py
+│   │   ├── alert.py
+│   │   └── rule.py
+│   │
+│   ├── services/
+│   │   ├── auth_service.py
+│   │   ├── transaction_service.py
+│   │   ├── aml_service.py
+│   │   ├── risk_service.py
+│   │   └── alert_service.py
+│   │
+│   └── database/
+│       ├── connection.py
+│       └── session.py
+│
+├── requirements.txt
+├── .env.example
+└── README.md
+```
+
+> **Note:** The exact backend folder structure may vary depending on the implementation. The structure above represents a clean modular organization for the system.
+
+---
+
+# 🔌 Backend API Layer
+
+The backend exposes REST APIs that allow the frontend to communicate with the application.
+
+The API layer handles requests related to:
+
+```text
+Authentication
+      ↓
+Customers
+      ↓
+Accounts
+      ↓
+Transactions
+      ↓
+AML Monitoring
+      ↓
+Risk Analysis
+      ↓
+Alerts
+      ↓
+AML Rules
 ```
 
 ---
 
-# 🏗️ System Architecture
+# 🔐 Authentication & Authorization
 
-The system can be broadly divided into three major layers:
-
-```text
-┌─────────────────────────────────┐
-│             FRONTEND            │
-│        React Web Application    │
-└────────────────┬────────────────┘
-                 │
-                 │ REST API
-                 ▼
-┌─────────────────────────────────┐
-│             BACKEND             │
-│ Authentication • Business Logic │
-│ AML Processing • Risk Analysis  │
-└────────────────┬────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────┐
-│            DATABASE             │
-│ Customers • Accounts •          │
-│ Transactions • Alerts • Rules   │
-└─────────────────────────────────┘
-```
-
----
-
-# 🔐 Security & Access Control
-
-The application follows a role-based access-control approach to restrict access to different sections of the platform.
+The backend manages user authentication and role-based authorization.
 
 ```text
                     ┌─────────────┐
@@ -464,11 +445,90 @@ Each role receives access only to the functionality relevant to its responsibili
 
 ---
 
-# 📊 Risk-Based Monitoring
+# 🗄️ Database
 
-The platform uses risk-based analysis to help identify transactions that may require additional investigation.
+The database stores the information required for banking operations and AML monitoring.
 
-Potential risk indicators can include:
+### Core data entities include:
+
+```text
+┌─────────────────┐
+│     Users       │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Customers    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Accounts     │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Transactions   │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   AML Alerts    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    AML Rules    │
+└─────────────────┘
+```
+
+### Main entities
+
+| Entity | Purpose |
+|---|---|
+| **Users** | Stores authentication and role information |
+| **Customers** | Stores customer-related information |
+| **Accounts** | Stores customer account information |
+| **Transactions** | Stores banking transaction records |
+| **AML Alerts** | Stores alerts generated by AML monitoring |
+| **AML Rules** | Stores configurable transaction-monitoring rules |
+
+---
+
+# 🚨 AML Monitoring Engine
+
+The AML monitoring engine is responsible for evaluating transactions against configured monitoring rules.
+
+```text
+                Transaction
+                     │
+                     ▼
+             ┌───────────────┐
+             │ AML Rule Engine│
+             └───────┬───────┘
+                     │
+           ┌─────────┴─────────┐
+           │                   │
+           ▼                   ▼
+      Normal Activity     Suspicious Pattern
+           │                   │
+           ▼                   ▼
+        Continue           Risk Score
+                               │
+                               ▼
+                         AML Alert
+                               │
+                               ▼
+                      Employee Investigation
+```
+
+---
+
+# 📊 Risk Analysis
+
+The system calculates risk scores based on transaction characteristics and configured AML rules.
+
+Potential risk indicators may include:
 
 - Unusually large transactions
 - Unusual transaction frequency
@@ -477,7 +537,143 @@ Potential risk indicators can include:
 - Transactions that deviate from expected customer behavior
 - Other administrator-configured AML rules
 
-> **Note:** An AML alert indicates potentially suspicious activity and does not by itself establish that money laundering or another financial crime has occurred. Alerts require appropriate investigation and human review.
+The risk score helps compliance employees **prioritize alerts and focus on potentially higher-risk activity**.
+
+---
+
+# 🚨 Alert Management
+
+When a transaction satisfies configured monitoring conditions, the system generates an AML alert.
+
+```text
+Transaction
+     │
+     ▼
+Rule Evaluation
+     │
+     ▼
+Risk Assessment
+     │
+     ▼
+┌─────────────────┐
+│  AML Alert      │
+│                 │
+│ Risk Score      │
+│ Severity        │
+│ Status          │
+└────────┬────────┘
+         │
+         ▼
+Compliance Employee
+         │
+         ▼
+Review / Investigate
+         │
+         ├───────────────┐
+         ▼               ▼
+      Resolve         Escalate
+```
+
+---
+
+# 🔄 Complete System Flow
+
+```text
+┌──────────────────────┐
+│       Customer       │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Banking Activity   │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│     Transaction      │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│    AML Monitoring    │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│    Risk Analysis     │
+└──────────┬───────────┘
+           │
+           ▼
+     ┌─────────────┐
+     │ Suspicious? │
+     └──────┬──────┘
+            │
+       ┌────┴────┐
+       │         │
+      No        Yes
+       │         │
+       ▼         ▼
+   Continue   AML Alert
+                 │
+                 ▼
+       ┌───────────────────┐
+       │ Compliance Team   │
+       └─────────┬─────────┘
+                 │
+                 ▼
+       Review / Investigate
+                 │
+          ┌──────┴──────┐
+          │             │
+          ▼             ▼
+       Resolve       Escalate
+```
+
+---
+
+# 👥 Role-Based Workflow
+
+```text
+┌──────────────┐
+│   Customer   │
+└──────┬───────┘
+       │
+       │ Transactions
+       ▼
+┌──────────────────┐
+│ AML Monitoring   │
+└────────┬─────────┘
+         │
+         │ Suspicious Activity
+         ▼
+┌──────────────────┐
+│ Compliance       │
+│ Employee         │
+└────────┬─────────┘
+         │
+         │ Investigation
+         ▼
+┌──────────────────┐
+│ Review / Resolve │
+└──────────────────┘
+
+
+┌──────────────┐
+│    Admin     │
+└──────┬───────┘
+       │
+       │ Configure Rules
+       ▼
+┌──────────────────┐
+│   AML Rule       │
+│   Configuration  │
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│ AML Monitoring   │
+└──────────────────┘
+```
 
 ---
 
@@ -491,27 +687,138 @@ Potential risk indicators can include:
 - **HTML5**
 - **CSS3**
 
-## Integration
+## Backend
 
+- **Python**
+- **FastAPI**
 - **REST APIs**
-- **Authentication & Authorization**
-- **Role-Based Access Control**
+
+## Database
+
+- **PostgreSQL**
+
+## Architecture & Integration
+
+- RESTful API architecture
+- Role-Based Access Control
+- Authentication & Authorization
+- Modular backend architecture
+- Database-driven transaction monitoring
 
 ---
 
-# 🎯 Project Objective
+# 📡 Frontend–Backend Communication
 
-The primary objective of this project is to develop a centralized and data-driven platform that assists financial institutions in:
+The frontend communicates with the backend through REST APIs.
 
-- Detecting potentially suspicious financial activities
-- Automating transaction monitoring
-- Prioritizing high-risk alerts
-- Supporting compliance investigations
-- Improving AML monitoring efficiency
-- Providing configurable AML monitoring rules
-- Maintaining a structured alert-management workflow
+```text
+┌─────────────────────┐
+│      React UI       │
+└──────────┬──────────┘
+           │
+           │ HTTP / REST API
+           ▼
+┌─────────────────────┐
+│     FastAPI         │
+│      Backend        │
+└──────────┬──────────┘
+           │
+           │ SQL / ORM
+           ▼
+┌─────────────────────┐
+│    PostgreSQL       │
+│      Database       │
+└─────────────────────┘
+```
+
+---
+
+# 📈 Dashboard Overview
+
+The system provides role-specific dashboards.
+
+### Customer Dashboard
+
+Provides:
+
+- Account overview
+- Transaction summary
+- Recent transactions
+- Account information
+- Statement access
+
+### Employee Dashboard
+
+Provides:
+
+- AML alert overview
+- Risk information
+- Alert statistics
+- Pending investigations
+- Alert management
+
+### Admin Dashboard / Rules
+
+Provides:
+
+- AML rule configuration
+- Rule parameters
+- Monitoring conditions
+- Rule management
+
+---
+
+# 🎯 Project Objectives
+
+The primary objectives of this project are to:
+
+- Detect potentially suspicious financial activities
+- Automate transaction monitoring
+- Calculate risk-based scores
+- Generate AML alerts
+- Prioritize potentially high-risk activity
+- Support compliance investigations
+- Provide configurable AML monitoring rules
+- Implement role-based access control
+- Maintain a structured alert-management workflow
+- Improve the efficiency of AML monitoring operations
 
 The system is designed to **assist AML and compliance teams** by providing automated monitoring and risk-based insights while keeping human review at the center of the investigation process.
+
+---
+
+# 🔐 Security Considerations
+
+The application incorporates security-focused design principles such as:
+
+- Authentication
+- Authorization
+- Role-Based Access Control
+- Protected routes
+- Controlled access to customer information
+- Backend API validation
+- Secure database access
+- Environment-based configuration
+
+Sensitive configuration values should be stored using environment variables rather than committed directly to the repository.
+
+---
+
+# 📊 Risk-Based Monitoring
+
+The platform uses risk-based analysis to help identify transactions that may require additional investigation.
+
+Potential risk indicators can include:
+
+- Large-value transactions
+- Unusual transaction frequency
+- Rapid movement of funds
+- Multiple transactions within a short period
+- Unusual customer transaction behavior
+- Configurable AML rules
+- Other risk indicators defined by administrators
+
+> **Note:** An AML alert represents potentially suspicious activity and does not by itself establish that money laundering or another financial crime has occurred. Alerts require appropriate investigation and human review.
 
 ---
 
@@ -529,7 +836,8 @@ Potential future improvements include:
 - 📑 Advanced compliance reporting
 - 🔔 Automated notifications and escalation
 - 🔗 Integration with external KYC/AML services
-- 📈 Advanced analytics and monitoring dashboards
+- 📈 Advanced analytics dashboards
+- 🔍 Advanced transaction pattern detection
 
 ---
 
@@ -548,14 +856,99 @@ The current implementation focuses on demonstrating the core workflow of a **Ret
 - Role-based dashboards
 - Configurable AML monitoring rules
 - Statement management
+- Backend REST APIs
+- Database integration
 
 ---
 
-# 🎓 Use Case
+# 🎓 Project Use Case
 
-This project demonstrates how modern software engineering, data-driven monitoring, and risk-based analysis can be combined to support **retail banking operations and AML compliance workflows**.
+This project demonstrates how modern software engineering, backend APIs, database systems, automation, and risk-based analysis can be combined to support **retail banking operations and AML compliance workflows**.
 
-It provides a foundation that can be further extended with machine learning, real-time processing, advanced analytics, and integration with production banking and compliance systems.
+The platform provides a foundation that can be further extended with real-time processing, machine learning, advanced analytics, transaction network analysis, and integration with production banking and compliance systems.
+
+---
+
+# 🏆 Key Benefits
+
+| Benefit | Description |
+|---|---|
+| 🔍 **Automated Monitoring** | Reduces the need for completely manual transaction monitoring |
+| 🚨 **Faster Alert Detection** | Automatically identifies transactions that meet configured risk conditions |
+| 📊 **Risk-Based Analysis** | Helps prioritize potentially higher-risk activity |
+| 👨‍💼 **Investigation Support** | Provides compliance employees with relevant alert and transaction information |
+| ⚙️ **Configurable Rules** | Allows administrators to modify AML monitoring conditions |
+| 🔐 **Role-Based Access** | Provides functionality based on user responsibilities |
+| 📈 **Scalable Architecture** | Provides a foundation for future AML and banking capabilities |
+
+---
+
+# 🛠️ Project Structure
+
+The complete project can be organized as:
+
+```text
+Retail-Banking-AML-Transaction-Monitoring/
+│
+├── retail-banking-aml-frontend/
+│   │
+│   ├── package.json
+│   ├── index.html
+│   ├── .env.example
+│   │
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx
+│       ├── styles.css
+│       │
+│       ├── api/
+│       │   └── api.js
+│       │
+│       ├── utils/
+│       │   ├── auth.js
+│       │   └── downloadStatement.js
+│       │
+│       ├── components/
+│       │   ├── Layout.jsx
+│       │   ├── ProtectedRoute.jsx
+│       │   ├── StatCard.jsx
+│       │   ├── AlertBadge.jsx
+│       │   └── Loading.jsx
+│       │
+│       └── pages/
+│           ├── Login.jsx
+│           ├── Register.jsx
+│           │
+│           ├── customer/
+│           │   ├── CustomerDashboard.jsx
+│           │   ├── Account.jsx
+│           │   └── Transactions.jsx
+│           │
+│           ├── employee/
+│           │   ├── EmployeeDashboard.jsx
+│           │   ├── Alerts.jsx
+│           │   └── AlertDetails.jsx
+│           │
+│           └── admin/
+│               └── AdminRules.jsx
+│
+├── retail-banking-aml-backend/
+│   │
+│   ├── app/
+│   │   ├── main.py
+│   │   │
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   └── database/
+│   │
+│   ├── requirements.txt
+│   └── .env.example
+│
+└── README.md
+```
 
 ---
 
@@ -563,7 +956,7 @@ It provides a foundation that can be further extended with machine learning, rea
 
 ## Retail Banking & AML Transaction Monitoring
 
-A banking technology project focused on applying **automation, data analysis, risk-based monitoring, and structured investigation workflows** to support financial crime detection and AML compliance.
+A banking technology project focused on applying **automation, data analysis, risk-based monitoring, backend APIs, database systems, and structured investigation workflows** to support financial crime detection and AML compliance.
 
 ---
 
@@ -574,7 +967,7 @@ A banking technology project focused on applying **automation, data analysis, ri
 ---
 
 <p align="center">
-  <b>Retail Banking & AML Transaction Monitoring</b>
+  <b>🏦 Retail Banking & AML Transaction Monitoring</b>
   <br>
   <sub>Built to support smarter, risk-based financial transaction monitoring.</sub>
 </p>
