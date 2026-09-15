@@ -1,5 +1,15 @@
 const { calculateRiskScore, classifyRisk } = require("../services/aml/riskScoring");
 
+
+
+
+
+
+
+
+
+
+
 describe("AML risk scoring", () => {
   test("caps score at 100", () => {
     expect(calculateRiskScore([70, 60])).toBe(100);
