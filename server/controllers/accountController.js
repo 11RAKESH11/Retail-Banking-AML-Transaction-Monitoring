@@ -2,9 +2,6 @@ const Account = require('../models/Account');
 const Customer = require('../models/Customer');
 const { createAuditLog } = require('../utils/helpers');
 
-// @desc    Get account details by ID or accountNumber
-// @route   GET /api/accounts/:id
-// @access  Private
 const getAccountById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -36,9 +33,6 @@ const getAccountById = async (req, res, next) => {
   }
 };
 
-// @desc    Freeze an account
-// @route   PUT /api/accounts/:id/freeze
-// @access  Private (EMPLOYEE, ADMIN)
 const freezeAccount = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -70,9 +64,6 @@ const freezeAccount = async (req, res, next) => {
   }
 };
 
-// @desc    Unfreeze an account
-// @route   PUT /api/accounts/:id/unfreeze
-// @access  Private (EMPLOYEE, ADMIN)
 const unfreezeAccount = async (req, res, next) => {
   try {
     const { id } = req.params;
