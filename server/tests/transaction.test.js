@@ -1,5 +1,4 @@
 const Transaction = require("../models/Transaction");
-
 describe("Transaction model", () => {
   test("rejects zero amount", () => {
     const transaction = new Transaction({
