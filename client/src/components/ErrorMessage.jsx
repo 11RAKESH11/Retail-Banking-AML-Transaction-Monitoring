@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
-const ErrorMessage = ({ message, onRetry }) => {
+const ErrorMessage = ({ message, onRetry }) => { 
   return (
     <div className="bg-rose-950/40 border border-rose-800/60 rounded-xl p-4 flex items-center justify-between text-rose-300 my-4">
       <div className="flex items-center gap-3">
